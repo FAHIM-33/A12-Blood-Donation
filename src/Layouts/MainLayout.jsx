@@ -5,7 +5,7 @@ const MainLayout = () => {
     return (
         <>
             <Navbar></Navbar>
-            <div className="h-16"></div>
+            {/* <div className="h-16"></div> */}
             <Outlet></Outlet>
         </>
     );

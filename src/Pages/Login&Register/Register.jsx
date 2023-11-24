@@ -2,27 +2,49 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
+import useAddress from "../../Hooks/useAddress";
+import { hostImage } from "../../Utility/hostImg";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
-    let { createUser, updateNameImg, googleLogin } = useContext(AuthContext)
-    const { register, handleSubmit, formState: { errors }, } = useForm()
+    let { createUser, updateNameImg } = useContext(AuthContext)
+    const { register, handleSubmit, formState: { errors } } = useForm()
     let nav = useNavigate()
+    const { district, upazila } = useAddress()
+    const axiosPublic = useAxiosPublic()
+
+    function addUserToDb(usersData, toastID) {
+        axiosPublic.post('/api/v1/add-user', usersData)
+            .then(() => toast.success("Successfully added user.", { id: toastID }))
+            .catch(() => toast.error("Could not add user in Database"))
+    }
+
 
     function onSubmit(data) {
-        const { email, password, name, url } = data
+        if (data.password !== data.confPassword) {
+            return toast.error('Password did not match')
+        }
+        const { email, password, name, imageFile } = data
 
         const toastID = toast.loading("Registering new user...")
         createUser(email, password)
             .then(() => {
-                alert('wa happen?')
-                toast.success("Registration Successfully", { id: toastID })
-                updateNameImg(name, url)
-                    .then(() => {
-                        nav('/')
+                toast("Registered, adding to DataBase..")
+                hostImage(imageFile)
+                    .then(url => {
+                        updateNameImg(name, url)
+                            .then(() => {
+                                delete data.imageFile
+                                delete data.confPassword
+                                delete data.password
+                                data.img = url
+                                addUserToDb(data, toastID)
+                                nav('/')
+                            })
+                            .catch(() => toast.error('Could not add username'))
                     })
-                    .catch(() => toast.error('Could not add username & img'))
+                    .catch(() => toast.error('Hosting Image & name'))
 
             })
             .catch(err => {
@@ -31,26 +53,13 @@ const Register = () => {
             })
     }
 
-
-    const handleGoogleLogin = (e) => {
-        e.preventDefault()
-        let toastID = toast.loading("Logging in with Google")
-        googleLogin()
-            .then(() => {
-                nav('/')
-                toast.success("Sign in with Google", { id: toastID })
-            })
-            .catch(() => {
-                toast.error("Failed to login with Google", { id: toastID })
-            })
-    }
-
     return (
-        <div className="pb-16">
+        <div className="pb-16 pt-14">
             <form onSubmit={handleSubmit(onSubmit)} className="lg:w-2/5 md:4/5 m-4 md:mx-auto p-4 border border-low rounded-lg">
-                <div className=''>
+                <div>
                     <span className="block whitespace-nowrap text-3xl md:text-5xl text-center" >Register Now</span>
                 </div>
+
                 <div className='md:mt-12 mt-8'>
                     <label htmlFor="name"
                         className=''
@@ -68,36 +77,84 @@ const Register = () => {
                     <input type="text" {...register("email", { required: true })} name="email" id="email" placeholder="Email"
                         className="" />
                 </div>
-                <div className='md:mt-8 mt-4'>
-                    <label htmlFor="url"
-                        className=''
-                    >Image URL:</label>
-                    <br />
-                    <input type="text" {...register("url", { required: true })} name="url" id="url" placeholder="Image URL"
-                        className="" />
-                </div>
 
                 <div className='md:mt-8 mt-4'>
-                    <label htmlFor="email"
+                    <label htmlFor="imageFile"
+                    >Choose Image:</label>
+                    <br />
+                    <input type="file" {...register("imageFile", { required: true })} name="imageFile" id="imageFile" placeholder="Choose file" />
+                </div>
+
+                <div className='md:mt-12 mt-8'>
+                    <label htmlFor="blood"
+                    >Select your blood group:</label>
+                    <br />
+                    <select required defaultValue='' className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("blood")}>
+                        <option value="" disabled>Bloog Group:</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O-">O-</option>
+                        <option value="O+">O+</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+
+                </div>
+
+
+                <div className='md:mt-12 mt-8'>
+                    <label>Select your district:</label>
+                    <br />
+                    <select required defaultValue='' className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("inputDistrict")}>
+                        <option value="" disabled>Select district:</option>
+                        {
+                            district?.map(obj => <option
+                                key={obj.id}
+                                value={obj.name}
+                            >{obj.name}</option>)
+                        }
+                    </select>
+                </div>
+
+                <div className='md:mt-12 mt-8'>
+                    <label>Select upazila:</label>
+                    <br />
+                    <select defaultValue='' required className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("inputUpazila")}>
+                        <option value="" disabled >Select upazila:</option>
+                        {
+                            upazila?.map(obj => <option
+                                key={obj.id}
+                                value={obj.name}
+                            >{obj.name}</option>)
+                        }
+                    </select>
+                </div>
+
+
+                <div className='md:mt-8 mt-4'>
+                    <label htmlFor="password"
                         className=''
                     >Create New Password:</label>
                     <br />
                     <input type="password" required placeholder="Password" {...register("password", {
                         required: true,
                         minLength: 6,
-                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                        // pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                     })} />
-                    {errors?.password?.type === 'pattern' && <span className="text-red-600">*Must include a capital,special character and number</span>}
+                    {/* {errors?.password?.type === 'pattern' && <span className="text-red-600">*Must include a capital,special character and number</span>} */}
                     {errors?.password?.type === 'minLength' && <span className="text-red-600">*Must be 6 characters or more</span>}
+
+                    <div>
+                        <label>Confirm password:</label>
+                        <input type="password" required placeholder="Re-type password"  {...register("confPassword")} />
+                    </div>
+
                 </div>
+
                 <input className='btn p-2 bg-low w-full rounded-md mt-8 text-xl md:text-2xl tracking-widest text-background ' value='Register' type="submit" />
 
-                <div className='flex items-center gap-2'>
-                    <div className='w-full h-[1px] bg-gray-400'></div>
-                    <div className='text-lg my-2 text-low'>or</div>
-                    <div className='w-full h-[1px] bg-gray-400'></div>
-                </div>
-                <button onClick={handleGoogleLogin} className='btn p-2 bg-low text-xl w-full rounded-md text-background flex  justify-center items-center'><span className='text-2xl md:text-3xl'><FcGoogle></FcGoogle></span>oogle</button>
             </form>
             <p className='text-center'>Already have an account? <Link to="/login" className='text-blue-600'>Login Here.</Link></p>
         </div>

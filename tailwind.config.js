@@ -13,6 +13,7 @@ export default {
         mid: 'var(--mid)',
         high: 'var(--high)',
         background: 'var(--background)',
+        fadegray: '#8f8f8f2d',
       }
     },
   },

@@ -4,11 +4,13 @@
 @tailwind utilities;
 
 :root {
-    --primary: rgb(32, 190, 0);
+    --primary: rgb(255, 0, 0);
+    /* --primary: rgb(32, 190, 0); */
     --low: rgb(51, 51, 51);
     --mid: rgb(33, 33, 33);
     --high: rgb(18, 18, 18);
     --background: rgb(245, 245, 245);
+    --fadegray: #8f8f8f2d;
 }
 
 :root[data-theme="dark"] {
@@ -62,7 +64,7 @@ nav a {
     transition: all 0.2s;
 }
 
-nav a:hover:not(.login) {
+nav a:hover:not(.login):not(.active) {
     color: var(--primary);
 }
 
@@ -109,7 +111,18 @@ input:focus {
     outline: 2px solid var(--primary);
 }
 
+
+
 .custom-toast {
     background-color: var(--high);
     color: var(--low);
+}
+
+
+.brr {
+    border: 1px solid lime;
+}
+
+.brb {
+    border: 1px soid blue;
 }
