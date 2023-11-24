@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (usr) => {
             if (usr) {
-                console.log(usr)
+                // console.log(usr)
             }
             else {
                 console.log('no usr')

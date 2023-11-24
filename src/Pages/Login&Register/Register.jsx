@@ -17,7 +17,7 @@ const Register = () => {
     function addUserToDb(usersData, toastID) {
         axiosPublic.post('/api/v1/add-user', usersData)
             .then(() => toast.success("Successfully added user.", { id: toastID }))
-            .catch(() => toast.error("Could not add user in Database"))
+            .catch(() => toast.error("Could not add user in Database", { id: toastID }))
     }
 
 

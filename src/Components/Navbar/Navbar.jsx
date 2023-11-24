@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from '../../assets/pngwing.com.png'
 import { FiLogOut } from 'react-icons/fi';
 
@@ -54,8 +54,13 @@ const Navbar = () => {
                                 </div>
                                 :
                                 <div className="flex">
-                                    <button className="btn bg-prim text-white font-bold py-1 px-2 rounded-l-full text-lg">Login</button>
-                                    <button className="btn bg-white text-prim font-bold py-1 px-2 rounded-r-full text-lg">Register</button>
+                                    <Link to='/login' className="logger">
+                                        <button className="btn bg-prim text-white font-bold py-1 px-2 rounded-l-full text-lg">Login</button>
+                                    </Link>
+
+                                    <Link to='/register' className="logger">
+                                        <button className="btn bg-white text-prim font-bold py-1 px-2 rounded-r-full text-lg">Register</button>
+                                    </Link>
                                 </div>
                         }
                     </div>

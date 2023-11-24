@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         prim: "var(--primary)",
+        sec: "var(--second)",
         low: 'var(--low)',
         mid: 'var(--mid)',
         high: 'var(--high)',
