@@ -11,6 +11,8 @@ import MyDonReq from "../Pages/Dashboard/MyDonReq/MyDonReq";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import View from "../Pages/Dashboard/ViewRequest/View";
+import EditReq from "../Pages/Dashboard/EditRequest/EditReq";
 
 
 export const router = createBrowserRouter([
@@ -43,8 +45,8 @@ export const router = createBrowserRouter([
                 element: <DashHome></DashHome>
             },
             {
-                path: 'all-users',
-                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                path: 'profile',
+                element: <Profile></Profile>
             },
             {
                 path: 'create-donation-request',
@@ -55,8 +57,17 @@ export const router = createBrowserRouter([
                 element: <MyDonReq></MyDonReq>
             },
             {
-                path: 'profile',
-                element: <Profile></Profile>
+                path: 'view/:id',
+                element: <View></View>,
+            },
+            {
+                path: 'edit/:id',
+                element: <EditReq></EditReq>,
+            },
+            // Admin routes:
+            {
+                path: 'all-users',
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
         ]
 
