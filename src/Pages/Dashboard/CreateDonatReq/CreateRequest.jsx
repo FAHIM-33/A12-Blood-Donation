@@ -17,7 +17,7 @@ const CreateRequest = () => {
 
     useEffect(() => {
         loading ||
-            axiosSecure.get(`/api/v1/isActive?email=${user?.email}`)
+            axiosSecure.get(`/api/v1/user?email=${user?.email}`)
                 .then(res => setIsActive(res.data.status))
                 .catch(err => console.log(err))
 

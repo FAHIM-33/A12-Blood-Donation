@@ -28,6 +28,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+img {
+    object-fit: contain;
+}
+
 .navbar {
     transition: transform 0.3s;
 }
@@ -54,6 +58,7 @@ body {
 
 .btn:active {
     scale: 0.98;
+    box-shadow: none;
 }
 
 
@@ -94,10 +99,11 @@ nav a:hover:not(.login):not(.active) {
     background-color: var(--mid);
 }
 
-.sidebar button {
+button {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    justify-content: center;
 }
 
 .loader {
@@ -140,7 +146,18 @@ textarea:focus {
     outline: 2px solid var(--second);
 }
 
+table {
+    min-width: 100%;
+    text-align: center;
+}
 
+tr {
+    border: 1px solid var(--fadegray);
+    padding: 0 2px;
+}
+th{
+    padding: 0.5rem;
+}
 
 .custom-toast {
     background-color: var(--high);

@@ -1,10 +1,6 @@
 
-const AdminRoute = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+const AdminRoute = ({ children }) => {
+    return <>{children}</>;
 };
 
 export default AdminRoute;

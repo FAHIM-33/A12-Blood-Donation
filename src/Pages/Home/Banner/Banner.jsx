@@ -10,7 +10,7 @@ const Banner = () => {
                         <h1>Donate Blood</h1>
                         <h1>Save life</h1>
                         <Link to='/register'>
-                            <button className='btn text-xl px-4 backdrop-blur-md  border-2  py-2 rounded-full border-prim'>Join as Donor</button>
+                            <button className='btn mx-auto text-xl px-4 backdrop-blur-md  border-2  py-2 rounded-full border-prim'>Join as Donor</button>
                         </Link>
                         <div className='text-base flex mt-4'>
                             <button className='btn px-2 rounded-l-md bg-white text-prim'>Search</button>

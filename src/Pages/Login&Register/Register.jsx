@@ -107,7 +107,7 @@ const Register = () => {
                 <div className='md:mt-12 mt-8'>
                     <label>Select your district:</label>
                     <br />
-                    <select required defaultValue='' className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("inputDistrict")}>
+                    <select required defaultValue='' className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("district")}>
                         <option value="" disabled>Select district:</option>
                         {
                             district?.map(obj => <option
@@ -121,7 +121,7 @@ const Register = () => {
                 <div className='md:mt-12 mt-8'>
                     <label>Select upazila:</label>
                     <br />
-                    <select defaultValue='' required className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("inputUpazila")}>
+                    <select defaultValue='' required className="p-4 w-full bg-fadegray text-mid rounded-md" {...register("upazila")}>
                         <option value="" disabled >Select upazila:</option>
                         {
                             upazila?.map(obj => <option

@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
     const location = useLocation()
 
 
-    if (loading) { return <p className="text-center text-7xl text-red-600  pt-48">Loading</p> }
+    if (loading) { return <p className="text-center text-7xl text-red-600  pt-48">Loading...</p> }
     if (!user?.email) {
         return <Navigate state={{ from: location.pathname }} replace to='/login'></Navigate>
     }

@@ -32,7 +32,7 @@ const Navbar = () => {
 
     return (
         <div className={`fixed w-full navbar z-50 ${visible ? '' : 'gone'}`}>
-            <nav className="flex p-2 my-1 mx-px border-2 bg-[#222] border-low rounded-full">
+            <nav className="flex p-1 my-1 mx-px border-2 bg-[#222] border-low rounded-full">
                 <div className="flex-grow flex gap-2 ml-1 items-center">
                     <img className="w-10" src={logo} alt="" />
                     <p className="text-white text-lg font-semibold">BDC</p>
