@@ -9,13 +9,16 @@ import Swal from 'sweetalert2'
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Heading from "../../../Components/Heading";
-import useAllRequest from "../../../Hooks/useAllRequest";
+import useAllRequest from "../../../Hooks/useUserAllReq";
+import useRole from "../../../Hooks/useRole";
 
 const DashHome = () => {
     const { user, loading } = useContext(AuthContext)
     const axiosSecure = useAxiosSecure()
     const { request, isLoading, refetch } = useAllRequest()
 
+    const { admin, volunteer, isRoleLoading } = useRole()
+    console.log(admin, volunteer)
 
     function handleStatus(id, str) {
         axiosSecure.patch(`/api/v1/status-update/${id}?requestStatus=${str}`)
@@ -57,15 +60,15 @@ const DashHome = () => {
         });
     }
 
-    if (loading || isLoading) { return <Loading></Loading> }
+    if (loading || isLoading || isRoleLoading) { return <Loading></Loading> }
 
     return (
-        <section className="text-high">
+        <section className="">
             <Helmet><title>BDC | Dashboard</title></Helmet>
             <Welcome name={user.displayName} ></Welcome>
             {
-                request?.length > 0 ?
-                    <div>
+                !admin && !volunteer && request?.length > 0 ?
+                    <div >
                         <Heading>Recent requests:</Heading>
                         <div className="p-4">
                             <table className="">
@@ -149,6 +152,7 @@ const DashHome = () => {
                     :
                     <></>
             }
+
         </section>
     );
 };

@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import View from "../Pages/Dashboard/ViewRequest/View";
 import EditReq from "../Pages/Dashboard/EditRequest/EditReq";
+import AllDonationReq from "../Pages/Dashboard/AllDonationReq/AllDonationReq";
 
 
 export const router = createBrowserRouter([
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
             {
                 path: 'all-users',
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: 'all-blood-donation-request',
+                element: <AdminRoute><AllDonationReq></AllDonationReq></AdminRoute>
             },
         ]
 

@@ -1,25 +1,28 @@
-import { FaHome, FaUsers } from 'react-icons/fa';
-import { MdOutlineBloodtype } from "react-icons/md";
+import { FaHome, FaListAlt, FaUsers } from 'react-icons/fa';
+import { MdOutlineBloodtype, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidDonateBlood } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
+import Divider from '../../../Components/Divider';
+import useRole from '../../../Hooks/useRole';
 
 
 const Sidebar = () => {
     const { user } = useContext(AuthContext)
+    const { admin, volunteer, isRoleLoading } = useRole()
     return (
         <section className='sticky top-0 left-0 sidebar w-max flex flex-col py-4 min-h-screen'>
             <NavLink to='/dashboard/profile'>
                 <button>
-                    <img className='w-8 h-8 object-cover rounded-full' src={user?.photoURL} /> 
+                    <img className='w-8 h-8 object-cover rounded-full' src={user?.photoURL} />
                     Profile ({user?.displayName})
                 </button>
             </NavLink>
             <NavLink to='/dashboard/home'>
                 <button>
-                    <FaHome className='text-xl'></FaHome>
-                    Dashboard - Home
+                    <MdSpaceDashboard className='text-2xl'></MdSpaceDashboard>
+                    Dashboard
                 </button>
             </NavLink>
             <br />
@@ -29,11 +32,7 @@ const Sidebar = () => {
                     Create Donation Request</button>
             </NavLink>
             <br />
-            <NavLink to='/dashboard/all-users'>
-                <button>
-                    <FaUsers className='text-2xl'></FaUsers>
-                    All Users</button>
-            </NavLink>
+
             <br />
             <NavLink to='/dashboard/my-donation-request'>
                 <button>
@@ -47,7 +46,26 @@ const Sidebar = () => {
                     Home
                 </button>
             </NavLink>
+            {/* Volunteer Route */}
+            {/* Admin Routes */}
+            <Divider></Divider>
+            {
+                isRoleLoading || (admin || volunteer) &&
+                <>
+                    <NavLink to='/dashboard/all-users'>
+                        <button>
+                            <FaUsers className='text-2xl'></FaUsers>
+                            All Users</button>
+                    </NavLink>
+                    <NavLink to='/dashboard/all-blood-donation-request'>
+                        <button>
+                            <FaListAlt className='text-xl'></FaListAlt>
+                            All blood doantion request</button>
+                    </NavLink>
+                    <br />
 
+                </>
+            }
         </section>
     );
 };

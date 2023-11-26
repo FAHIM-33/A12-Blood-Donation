@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../Providers/AuthProvider";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Loading from "../../../Components/Loading";
 import Heading from "../../../Components/Heading";

@@ -1,0 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
+import useAxiosSecure from "./useAxiosSecure";
+
+const useUserAllRequest = () => {
+    const { user } = useContext(AuthContext)
+    const axiosSecure = useAxiosSecure()
+
+    const { data: request, isLoading, refetch } = useQuery({
+        queryKey: ['all-user-requests'],
+        queryFn: async () => {
+            let res = await axiosSecure.get(`/api/v1/my-donation-request?email=${user?.email}`)
+            return res.data
+        }
+    })
+    return { request, isLoading, refetch }
+};
+
+export default useUserAllRequest;
