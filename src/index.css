@@ -20,6 +20,9 @@
     --high: rgb(235, 235, 235);
     --background: rgb(8, 8, 8);
 }
+.test{
+    color: #17fa17;
+}
 
 body {
     min-height: 100vh;
@@ -111,7 +114,7 @@ button {
     border: 5px solid transparent;
     border-top: 5px solid var(--primary);
     border-bottom: 5px solid var(--mid);
-    margin: 6rem auto;
+    margin: auto;
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
@@ -142,7 +145,7 @@ textarea {
     transition: all 0.2s;
 }
 
-input:focus,
+input:focus:not(.inModal),
 textarea:focus {
     outline: 2px solid var(--second);
 }
@@ -171,7 +174,14 @@ th{
     color: var(--high);
 }
 
-
+.selectedPage{
+    background-color: var(--primary);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+.pagination-container button{
+    padding: 0.5rem;
+}
 
 .brr {
     border: 1px solid lime;

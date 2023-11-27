@@ -1,5 +1,5 @@
 import { FaHome, FaListAlt, FaUsers } from 'react-icons/fa';
-import { MdOutlineBloodtype, MdSpaceDashboard } from "react-icons/md";
+import { MdFeed, MdOutlineBloodtype, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidDonateBlood } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
@@ -62,7 +62,12 @@ const Sidebar = () => {
                             <FaListAlt className='text-xl'></FaListAlt>
                             All blood doantion request</button>
                     </NavLink>
-                    <br />
+                    <NavLink to='/dashboard/content-management'>
+                        <button>
+                            <MdFeed className='text-xl'></MdFeed>
+                            Content Management</button>
+                    </NavLink>
+
 
                 </>
             }

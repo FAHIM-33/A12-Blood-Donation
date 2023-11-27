@@ -2,19 +2,21 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     let { loginUser } = useContext(AuthContext)
     let nav = useNavigate()
+    const location = useLocation()
+    console.log(location.state)
 
     function onSubmit(data) {
         let toastID = toast.loading("Loggin in...")
         loginUser(data.email, data.password)
             .then(() => {
-                nav('/')
+                nav(location?.state?.from || '/')
                 toast.success("Login Successful", { id: toastID })
             })
             .catch((error) => {

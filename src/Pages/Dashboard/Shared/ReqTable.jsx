@@ -18,7 +18,7 @@ const ReqTable = ({ data }) => {
     useEffect(() => { setModded(request) }, [request])
 
     function handleStatus(id, str) {
-        axiosSecure.patch(`/api/v1/status-update/${id}?requestStatus=${str}`)
+        axiosSecure.put(`/api/v1/status-update/${id}`, { requestStatus: str })
             .then(res => {
                 console.log(res.data)
                 if (res.data.modifiedCount > 0) {
@@ -128,7 +128,7 @@ const ReqTable = ({ data }) => {
                                     volunteer ||
                                     <td>
                                         <div className="flex items-center justify-center gap-2 text-2xl">
-                                            <Link to={`/dashboard/view/${req._id}`}>
+                                            <Link to={`/donation-request/details/${req._id}`}>
                                                 <button className="text-high btn p-2" title="View details">
                                                     <FaEye></FaEye>
                                                 </button>

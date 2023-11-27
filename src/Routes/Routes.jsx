@@ -11,20 +11,31 @@ import MyDonReq from "../Pages/Dashboard/MyDonReq/MyDonReq";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
-import View from "../Pages/Dashboard/ViewRequest/View";
 import EditReq from "../Pages/Dashboard/EditRequest/EditReq";
 import AllDonationReq from "../Pages/Dashboard/AllDonationReq/AllDonationReq";
+import DonationRequests from "../Pages/DonationRequests/DonationRequests";
+import Details from "../Pages/DonationRequests/Details";
+import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
+import AddBlog from "../Pages/Dashboard/ContentManagement/AddBlog";
 
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout></MainLayout>,
-        errorElement: <div>This is error page</div>,
+        errorElement: <div>error 404</div>,
         children: [
             {
                 path: '/',
                 element: <Home></Home>,
+            },
+            {
+                path: 'donation-request',
+                element: <DonationRequests></DonationRequests>,
+            },
+            {
+                path: 'donation-request/details/:id',
+                element: <PrivateRoute><Details></Details></PrivateRoute>,
             },
 
         ]
@@ -57,15 +68,12 @@ export const router = createBrowserRouter([
                 path: 'my-donation-request',
                 element: <MyDonReq></MyDonReq>
             },
-            {
-                path: 'view/:id',
-                element: <View></View>,
-            },
+
             {
                 path: 'edit/:id',
                 element: <EditReq></EditReq>,
             },
-            // Admin routes:
+            // Admin/Volunteer routes:
             {
                 path: 'all-users',
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
@@ -73,6 +81,14 @@ export const router = createBrowserRouter([
             {
                 path: 'all-blood-donation-request',
                 element: <AdminRoute><AllDonationReq></AllDonationReq></AdminRoute>
+            },
+            {
+                path: 'content-management',
+                element: <AdminRoute><ContentManagement></ContentManagement></AdminRoute>
+            },
+            {
+                path: 'content-management/add-blog',
+                element: <AdminRoute><AddBlog></AddBlog></AdminRoute>
             },
         ]
 

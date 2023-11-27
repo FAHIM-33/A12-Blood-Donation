@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
-import Loading from "../../Components/Loading";
 import Banner from "./Banner/Banner";
+import ContactUs from "./ContactUs";
+import Featured from "./Featured";
 
 const Home = () => {
     return (
@@ -9,6 +10,8 @@ const Home = () => {
                 <title>BDC | Home</title>
             </Helmet>
             <Banner></Banner>
+            <Featured></Featured>
+            <ContactUs></ContactUs>
         </section>
     );
 };

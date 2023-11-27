@@ -1,20 +1,34 @@
 import Heading from "../../../Components/Heading";
-import useAllUsers from "../../../Hooks/useAllUsers";
 import { MdBlock } from "react-icons/md";
 import Loading from "../../../Components/Loading";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-
 import Filter from "./Filter";
+import { useQuery } from "@tanstack/react-query";
 
 
 const AllUsers = () => {
-    const { allUsers, isLoading, refetch } = useAllUsers()
+    // const { allUsers, isLoading, refetch } = useAllUsers()
+    const [totalDocs, setTotalDocs] = useState(0)
+    const [itemPerPage, setItemPerPage] = useState(5)
+    const [currentPage, setCurrentPage] = useState(0)
     const axiosSecure = useAxiosSecure()
     const [users, setUsers] = useState([])
-    
-    const admin = true
+
+    useEffect(() => {
+        axiosSecure.get('/api/v1/all-stats')
+            .then(res => setTotalDocs(res.data.totalUser))
+            .catch(err => { console.log(err) })
+    }, [axiosSecure])
+
+    const { data: allUsers, isLoading, refetch } = useQuery({
+        queryKey: ['page_user', currentPage],
+        queryFn: async () => {
+            let res = await axiosSecure.get(`/api/v1/paginated-all-users?size=${itemPerPage}&currentPage=${currentPage}`)
+            return res.data
+        }
+    })
 
     useEffect(() => {
         setUsers(allUsers)
@@ -48,6 +62,16 @@ const AllUsers = () => {
                 toast(`Already ${status}`)
             })
             .catch(() => toast.error('Could not update'))
+    }
+
+
+
+    let totalPage = Math.ceil(totalDocs / itemPerPage)
+    let pages = [...Array(totalPage).keys()]
+
+    const handleItemsPerPage = (e) => {
+        setItemPerPage(e.target.value)
+        setCurrentPage(0)
     }
 
     if (isLoading) { return <Loading></Loading> }
@@ -119,7 +143,30 @@ const AllUsers = () => {
                         </tbody>
                     </table>
                 </div>
-                <h3>Paginatin required</h3>
+            </section>
+
+            <section className='pagination-container flex gap-8 my-8 w-fit mx-auto'>
+                <button
+                    className="bg-high p-2 rounded-md text-background"
+                    onClick={() => { currentPage > 0 && setCurrentPage((currentPage - 1)) }}>Prev</button>
+                {
+                    pages.map(num => <button
+                        key={num}
+                        onClick={() => setCurrentPage(num)}
+                        className={currentPage === num ? 'selectedPage' : ''}
+                    >{num}</button>)
+                }
+                <button
+                    className="bg-high p-2 rounded-md text-background"
+                    onClick={() => { currentPage < totalPage - 1 && setCurrentPage((currentPage + 1)) }}
+                >Next</button>
+                <select className="bg-low rounded-md p-2" name="item" value={itemPerPage} onChange={handleItemsPerPage} id="">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+
             </section>
         </section >
     );
