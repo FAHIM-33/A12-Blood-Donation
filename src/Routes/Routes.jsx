@@ -17,6 +17,7 @@ import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Details from "../Pages/DonationRequests/Details";
 import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
 import AddBlog from "../Pages/Dashboard/ContentManagement/AddBlog";
+import Blog from "../Pages/Blog/Blog";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: 'donation-request/details/:id',
                 element: <PrivateRoute><Details></Details></PrivateRoute>,
+            },
+            {
+                path: 'all-blogs',
+                element:<Blog></Blog>,
             },
 
         ]
@@ -73,6 +78,11 @@ export const router = createBrowserRouter([
                 path: 'edit/:id',
                 element: <EditReq></EditReq>,
             },
+            // Mixed Route with access
+            {
+                path: 'content-management',
+                element: <ContentManagement></ContentManagement>
+            },
             // Admin/Volunteer routes:
             {
                 path: 'all-users',
@@ -81,10 +91,6 @@ export const router = createBrowserRouter([
             {
                 path: 'all-blood-donation-request',
                 element: <AdminRoute><AllDonationReq></AllDonationReq></AdminRoute>
-            },
-            {
-                path: 'content-management',
-                element: <AdminRoute><ContentManagement></ContentManagement></AdminRoute>
             },
             {
                 path: 'content-management/add-blog',

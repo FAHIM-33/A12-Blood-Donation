@@ -77,7 +77,7 @@ const AddBlog = () => {
 
     console.log(content)
     return (
-        <section className="cont">
+        <section className="">
             <Heading>Create a blog</Heading>
             <div className="p-4">
                 <form onSubmit={handleSubmit(onSubmit)} className=" md:mx-auto p-4 border border-low rounded-lg">
@@ -87,7 +87,7 @@ const AddBlog = () => {
                             className=''
                         >Title:</label>
                         <br />
-                        <input type="text" {...register("title", { required: true })} name="title" id="title" placeholder="Username"
+                        <input type="text" {...register("title", { required: true })} name="title" id="title" placeholder="Title"
                             className="" />
                     </div>
 

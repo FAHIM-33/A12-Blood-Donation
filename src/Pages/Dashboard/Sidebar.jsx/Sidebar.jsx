@@ -11,6 +11,7 @@ import useRole from '../../../Hooks/useRole';
 const Sidebar = () => {
     const { user } = useContext(AuthContext)
     const { admin, volunteer, isRoleLoading } = useRole()
+
     return (
         <section className='sticky top-0 left-0 sidebar w-max flex flex-col py-4 min-h-screen'>
             <NavLink to='/dashboard/profile'>

@@ -77,7 +77,7 @@ const Profile = () => {
             <div className="flex w-max p-4 rounded-md bg-fadegray">
                 <img src={user?.photoURL} className="w-48 h-48 object-cover" alt="" />
                 <div className="text-xl pl-4 flex flex-col space-y-2">
-                    <p className="text-2xl">User: {user?.displayName}<span className="text-sec"> {userData?.role}</span></p>
+                    <p className="text-2xl">User: {user?.displayName}<span className="text-sec"> ({userData?.role || 'Donor'})</span></p>
                     <p className="text-low">Email: {userData?.email}</p>
                     <p className="text-base text-mid">Address: {userData?.upazila} upazila, {userData?.district} district.</p>
                     <p>Blood Group: <span className="text-prim">{userData.blood}</span></p>
