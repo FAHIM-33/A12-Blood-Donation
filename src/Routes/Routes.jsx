@@ -17,7 +17,9 @@ import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Details from "../Pages/DonationRequests/Details";
 import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
 import AddBlog from "../Pages/Dashboard/ContentManagement/AddBlog";
+import EditContent from "../Pages/Dashboard/ContentManagement/EditContent";
 import Blog from "../Pages/Blog/Blog";
+import Search from "../Pages/Search/Search";
 
 
 export const router = createBrowserRouter([
@@ -40,7 +42,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'all-blogs',
-                element:<Blog></Blog>,
+                element: <Blog></Blog>,
+            },
+            {
+                path: 'search',
+                element: <Search></Search>
             },
 
         ]
@@ -73,7 +79,6 @@ export const router = createBrowserRouter([
                 path: 'my-donation-request',
                 element: <MyDonReq></MyDonReq>
             },
-
             {
                 path: 'edit/:id',
                 element: <EditReq></EditReq>,
@@ -95,6 +100,10 @@ export const router = createBrowserRouter([
             {
                 path: 'content-management/add-blog',
                 element: <AdminRoute><AddBlog></AddBlog></AdminRoute>
+            },
+            {
+                path: '/dashboard/edit-content/:id',
+                element: <AdminRoute><EditContent></EditContent></AdminRoute>
             },
         ]
 

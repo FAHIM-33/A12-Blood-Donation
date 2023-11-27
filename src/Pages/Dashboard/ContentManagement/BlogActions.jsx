@@ -2,6 +2,7 @@ import toast from 'react-hot-toast';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import useRole from '../../../Hooks/useRole';
+import { Link } from 'react-router-dom';
 
 const BlogActions = ({ refetch, blog }) => {
     const axiosSecure = useAxiosSecure()
@@ -45,9 +46,11 @@ const BlogActions = ({ refetch, blog }) => {
         <div className='flex justify-end gap-2 p-1'>
             {
                 hasAccess ?
-                    <button className='border border-low text-high rounded-md btn px-2 py-1'>
-                        <FaPen></FaPen>
-                    </button>
+                    <Link to={`/dashboard/edit-content/${blog._id}`}>
+                        <button className='border border-low text-high rounded-md btn px-2 py-1'>
+                            <FaPen></FaPen>
+                        </button>
+                    </Link>
                     :
                     <></>
             }

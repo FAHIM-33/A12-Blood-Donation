@@ -12,11 +12,10 @@ const Banner = () => {
                         <Link to='/register'>
                             <button className='btn mx-auto text-xl px-4 backdrop-blur-md  border-2  py-2 rounded-full border-prim'>Join as Donor</button>
                         </Link>
-                        <div className='text-base flex mt-4'>
-                            <button className='btn px-2 rounded-l-md bg-white text-prim'>Search</button>
-                            <input type="text" className='backdrop-blur-sm' placeholder='Search Donor' />
-                        </div>
 
+                        <Link to='/search'>
+                            <button className='btn mt-4 mx-auto text-xl px-4 backdrop-blur-md  border-2  py-2 rounded-full border-prim'>Search Donor</button>
+                        </Link>
                     </div>
                 </div>
             </figure>

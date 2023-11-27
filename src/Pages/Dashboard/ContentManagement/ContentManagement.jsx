@@ -5,13 +5,15 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Loading from "../../../Components/Loading";
 import useRole from "../../../Hooks/useRole";
 import BlogCard from "./BlogCard";
+import FilterContent from "./FilterContent";
+import { useEffect, useState } from "react";
 
 const ContentManagement = () => {
     const axiosPublic = useAxiosPublic()
     const { admin, volunteer } = useRole()
+    const [blogs, setBlogs] = useState([])
 
-
-    const { data: blogs, isLoading, refetch } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['all-blog'],
         queryFn: async () => {
             let res = await axiosPublic.get('/api/v1/all-blog')
@@ -19,18 +21,30 @@ const ContentManagement = () => {
         }
     })
 
-    if (isLoading) { return <Loading></Loading> }
+    useEffect(() => {
+        setBlogs(data)
+    }, [data])
+
+    function handleFilter(str) {
+        if (!str) { return setBlogs(data) }
+        let filteredBlogs = data?.filter(obj => obj.blogStatus === str)
+        console.log(filteredBlogs)
+        setBlogs(filteredBlogs)
+    }
+
+    if (isLoading || !blogs) { return <Loading></Loading> } 
 
 
     return (
         <section className="mb-48">
-                <Heading>Content Management</Heading>
+            <Heading>Content Management</Heading>
             {
                 (admin || volunteer) &&
                 <div className="flex justify-end">
                     <Link to='/dashboard/content-management/add-blog'>
                         <button className="mr-4 btn border-2 border-high rounded-md px-2 py-1">+ Add blog</button>
                     </Link>
+                    <FilterContent handleFilter={handleFilter}></FilterContent>
                 </div>
             }
 

@@ -1,5 +1,4 @@
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import useRole from "../../Hooks/useRole";
 import Loading from "../../Components/Loading";
 import Heading from "../../Components/Heading";
 import BlogCard from "../Dashboard/ContentManagement/BlogCard";
@@ -9,7 +8,6 @@ import { FaSearch } from "react-icons/fa";
 
 const ContentManagement = () => {
     const axiosPublic = useAxiosPublic()
-    const { admin, volunteer } = useRole()
     const [blogs, setBlogs] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
