@@ -10,7 +10,6 @@ const Login = () => {
     let { loginUser } = useContext(AuthContext)
     let nav = useNavigate()
     const location = useLocation()
-    console.log(location.state)
 
     function onSubmit(data) {
         let toastID = toast.loading("Loggin in...")

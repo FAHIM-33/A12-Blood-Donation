@@ -74,8 +74,8 @@ const ReqTable = ({ data }) => {
             <FilterStatus handleFilter={handleFilter}></FilterStatus>
             <div className="p-4">
                 <table className="">
-                    <thead className="bg-fadegray">
-                        <tr className="">
+                    <thead className="bg-[#1d1d1d] sticky top-0">
+                        <tr className=""> 
                             <th>Receipent</th>
                             <th>Location</th>
                             <th>Date</th>

@@ -4,7 +4,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAllUsers = () => {
     const axiosSecure = useAxiosSecure()
-
+    // This is not being used!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const { data: allUsers, isLoading, refetch } = useQuery({
         queryKey: ['all-users'],
         queryFn: async () => {

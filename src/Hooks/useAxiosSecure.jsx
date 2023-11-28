@@ -1,20 +1,29 @@
 import axios from "axios";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
+import auth from "../config/firebase.config";
+import { signOut } from "firebase/auth";
 
 const secureInstance = axios.create({
-    // baseURL: 'https://assignment12-kvx8eokkz-sh-fahims-projects.vercel.app',
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://assignment12-bay.vercel.app',
+    // baseURL: 'http://localhost:5000',
+    withCredentials: true,
 })
 
 const useAxiosSecure = () => {
-    secureInstance.interceptors.response.use(function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        return response;
-    }, function (error) {
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
-        return Promise.reject(error);
-    });
+    
+    useEffect(() => {
+        secureInstance.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            let stat = error.response.status
+            if (stat === 401 || stat === 403) {
+                console.log('Ordho Chondro')
+                signOut(auth)
+            }
+            return Promise.reject(error);
+        });
+    }, [])
 
     return secureInstance
 };

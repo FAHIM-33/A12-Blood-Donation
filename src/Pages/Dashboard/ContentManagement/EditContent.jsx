@@ -24,7 +24,6 @@ const AddBlog = () => {
             .catch(err => console.log(err))
     }, [id, axiosSecure])
 
-    console.log(post)
 
     const htmlToText = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html')

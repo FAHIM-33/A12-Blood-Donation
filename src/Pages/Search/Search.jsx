@@ -10,7 +10,7 @@ const Search = () => {
     const { district, upazila } = useAddress()
     const axiosPublic = useAxiosPublic()
     const [donors, setDonors] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(null)
 
     function handleSearch(data) {
         setLoading(true)

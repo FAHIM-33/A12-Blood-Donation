@@ -29,7 +29,7 @@ const DonationRequests = () => {
 
             <div className="p-4">
                 <table className="">
-                    <thead className="bg-fadegray">
+                    <thead className="bg-[#1d1d1d] sticky top-0">
                         <tr className="">
                             <th>Requester</th>
                             <th>Location</th>

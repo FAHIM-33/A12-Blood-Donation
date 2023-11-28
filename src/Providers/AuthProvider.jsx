@@ -2,12 +2,15 @@ import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../config/firebase.config";
 import pt from 'prop-types'
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const provider = new GoogleAuthProvider();
+    const axiosSecure = useAxiosSecure()
 
     function createUser(email, password) {
         setLoading(true)
@@ -37,7 +40,9 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (usr) => {
             if (usr) {
-                // console.log(usr)
+                axiosSecure.get(`/api/v1/jwt?email=${usr.email}`)
+                    .then(res => console.log(res.data))
+                    .catch(() => toast.error('Error generating Token'))
             }
             else {
                 console.log('no usr')
@@ -48,7 +53,7 @@ const AuthProvider = ({ children }) => {
 
 
         return () => unSubscribe()
-    }, [])
+    }, [axiosSecure])
 
 
     const data = {
