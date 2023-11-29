@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 
 const DashHome = () => {
     const { user, loading } = useContext(AuthContext)
-    const { request, isLoading, refetch } = useAllRequest()
+    const { request, isLoading, refetch } = useAllRequest({ itemPerPage: 3, currentPage: 0 })
     const axiosSecure = useAxiosSecure()
     const { admin, volunteer, isRoleLoading } = useRole()
     const [data, setData] = useState({})

@@ -23,7 +23,7 @@ const AllUsers = () => {
     }, [axiosSecure])
 
     const { data: allUsers, isLoading, refetch } = useQuery({
-        queryKey: ['page_user', currentPage],
+        queryKey: ['page_user', currentPage, itemPerPage],
         queryFn: async () => {
             let res = await axiosSecure.get(`/api/v1/paginated-all-users?size=${itemPerPage}&currentPage=${currentPage}`)
             return res.data
@@ -33,6 +33,8 @@ const AllUsers = () => {
     useEffect(() => {
         setUsers(allUsers)
     }, [allUsers])
+
+    console.log(users?.length)
 
     function handleRole(id, role) {
         axiosSecure.get(`/api/v1/update-user/${id}?role=${role}`)
@@ -72,6 +74,7 @@ const AllUsers = () => {
     const handleItemsPerPage = (e) => {
         setItemPerPage(e.target.value)
         setCurrentPage(0)
+        refetch()
     }
 
     if (isLoading) { return <Loading></Loading> }

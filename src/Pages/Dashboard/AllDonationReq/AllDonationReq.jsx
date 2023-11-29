@@ -20,7 +20,7 @@ const AllDonationReq = () => {
 
 
     const { data: request, isLoading, refetch } = useQuery({
-        queryKey: ['page_req', currentPage],
+        queryKey: ['page_req', currentPage, itemPerPage],
         queryFn: async () => {
             let res = await axiosPublic.get(`/api/v1/paginated-all-req?size=${itemPerPage}&currentPage=${currentPage}`)
             return res.data
